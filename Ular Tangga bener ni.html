@@ -1,0 +1,552 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Ular Tangga Nusantara 1942</title>
+<style>
+:root{--ink:#2b1d14;--red:#b3201f;--paper:#f1e2bd;--gold:#c9a24a;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100vh;font-family:Georgia,'Times New Roman',serif;color:var(--ink);background:radial-gradient(circle at 50% 115%,#e3cd96,#a58b55 75%)}
+.sun{position:fixed;inset:0;z-index:-1;background:repeating-conic-gradient(from 0deg at 50% 115%,#b3201f40 0 6deg,transparent 6deg 12deg)}
+main{max-width:640px;margin:0 auto;padding:12px}
+h1{margin:6px 0;text-align:center;font-size:1.5rem;letter-spacing:1px;color:var(--red);text-shadow:1px 1px 0 #fff8}
+h1 small{display:block;font-size:.7rem;color:var(--ink);letter-spacing:3px}
+.card{background:var(--paper);border:3px double var(--ink);border-radius:6px;padding:12px;margin:10px 0;box-shadow:0 4px 0 #0004}
+button,input,select{font:inherit;padding:10px 14px;border:2px solid var(--ink);border-radius:4px;background:#fff8e6;color:var(--ink)}
+button{cursor:pointer;background:var(--red);color:#fff8e6;font-weight:bold;box-shadow:0 3px 0 #5a0f0f}
+button:active{transform:translateY(2px);box-shadow:0 1px 0 #5a0f0f}button:disabled{opacity:.5}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}.row>*{flex:1;min-width:110px}
+.pl{display:flex;gap:6px;flex-wrap:wrap}
+.chip{padding:4px 8px;border:2px solid var(--ink);border-radius:20px;font-size:.8rem;background:#fff8e6}.chip.on{background:var(--gold);font-weight:bold}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%;border:1.5px solid #000;vertical-align:-1px;margin-right:4px}
+.stage{perspective:900px;padding:6px 0 18px}
+.wrap{position:relative;transform:rotateX(20deg);transform-origin:50% 100%;box-shadow:0 6px 0 #6b4a1f,0 12px 0 #3d2a10,0 22px 22px #0007;border:4px solid var(--ink);background:var(--paper)}
+#board{display:grid;grid-template-columns:repeat(10,1fr)}
+.c{aspect-ratio:1;position:relative;font-size:clamp(7px,2.1vw,12px);padding:1px 2px;display:flex;flex-wrap:wrap;align-content:flex-end;justify-content:center;gap:1px;border:.5px solid #2b1d1455;background:#e8d29c}
+.c:nth-child(even){background:#f4e7c3}.c.l{background:#bfd8a0}.c.s{background:#e8a89a}.c.f{background:#f6c94a}
+.n{position:absolute;top:0;left:2px;font-weight:bold;opacity:.7}.m{position:absolute;top:0;right:1px;font-size:1.3em}
+.t{width:clamp(10px,3.4vw,19px);height:clamp(10px,3.4vw,19px);border-radius:50%;border:1.5px solid #000;box-shadow:0 2px 2px #000a,inset -2px -2px 3px #0005,inset 2px 2px 3px #fff6;z-index:2}
+svg.ov{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.dice{font-size:3.2rem;line-height:1;text-align:center}
+.q{font-size:1.05rem;margin:6px 0 10px}.opt{width:100%;margin:5px 0;text-align:left;background:#fff8e6;color:var(--ink);box-shadow:0 3px 0 #0005}
+.msg{padding:8px;background:#2b1d14;color:#f1e2bd;border-radius:4px;font-size:.9rem;text-align:center}
+.sun{inset:-70%;background:repeating-conic-gradient(from 0deg at 50% 50%,#b3201f38 0 6deg,transparent 6deg 12deg);animation:spin 160s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes wob{0%{transform:rotate(0) translateY(0)}25%{transform:rotate(100deg) translateY(-34px) scale(1.1)}50%{transform:rotate(200deg) translateY(0)}75%{transform:rotate(290deg) translateY(-26px) scale(1.1)}100%{transform:rotate(360deg) translateY(0)}}
+@keyframes pop{0%{transform:scale(.6) rotate(-25deg)}55%{transform:scale(1.3) rotate(6deg)}100%{transform:scale(1)}}
+@keyframes glow{50%{filter:drop-shadow(0 0 7px #ffd54a) drop-shadow(0 3px 2px #0008)}}
+@keyframes shk{from{transform:rotate(-9deg)}to{transform:rotate(9deg) translateY(-5%)}}@keyframes ped{from{transform:translateY(0)}to{transform:translateY(-5%) rotate(-3deg)}}
+@keyframes fl{50%{opacity:1;stroke-width:3.2}}@keyframes bn{50%{transform:translateY(-12px)}}
+.card{animation:up .5s both}#pn>*{animation:up .4s both}#pn{transition:opacity .25s}#pn.dim{opacity:.45;pointer-events:none}
+button{transition:transform .15s,box-shadow .15s,filter .2s}button:hover:not(:disabled){filter:brightness(1.12);transform:translateY(-2px)}
+.opt{transition:transform .15s,background .2s}.opt:hover:not(:disabled){background:#ffe9a8;transform:translateX(4px)}
+.chip{transition:all .3s;display:inline-flex;align-items:center;gap:4px}.chip.on{transform:scale(1.07);box-shadow:0 0 0 2px var(--red)}.mi svg{width:17px;height:21px;display:block}
+.wrap{container-type:inline-size}#tk{position:absolute;inset:0;pointer-events:none}
+.tok{position:absolute;width:8.4%;aspect-ratio:4/5;transform:translate(-50%,-82%);transition:left .27s ease-in-out,top .27s ease-in-out;filter:drop-shadow(0 3px 2px #0008);z-index:3}.tok.nt{transition:none}
+.tok svg{width:100%;height:100%;display:block}.tok.turn{animation:glow 1.3s infinite}
+.tok.bike::after{content:"🚲";position:absolute;left:50%;bottom:-26%;transform:translateX(-50%);font-size:7cqw;line-height:1}.tok.bike svg{animation:ped .25s infinite alternate}.tok.shake svg{animation:shk .12s infinite alternate}
+.c.l,.c.s{box-shadow:inset 0 0 6px #0003}.m svg{width:2.2em;height:2.7em;display:block}.m{top:10%;right:4%}.fl{animation:fl .5s 3}
+#dv{position:fixed;inset:0;display:grid;place-items:center;background:#0000;opacity:0;pointer-events:none;transition:opacity .25s,background .25s;z-index:50}#dv.on{opacity:1;background:#000b}
+#dd{width:min(46vw,200px);aspect-ratio:1;margin:0 auto;filter:drop-shadow(0 14px 14px #000a)}#dd.roll{animation:wob .45s linear infinite}#dd.land{animation:pop .5s both}#dd svg{width:100%;height:100%;display:block}
+#dl{margin-top:16px;color:#f1e2bd;font-size:1.3rem;text-align:center;font-weight:bold;text-shadow:0 2px 0 #000}.trophy{font-size:3.5rem;text-align:center;animation:bn 1s infinite}
+@media(prefers-reduced-motion:reduce){.sun{animation:none}}
+#qm{position:fixed;inset:0;display:grid;place-items:center;padding:12px;background:#0000;opacity:0;pointer-events:none;transition:opacity .25s,background .25s;z-index:40}#qm.on{opacity:1;pointer-events:auto;background:#000a}
+#qc{width:min(94vw,480px);max-height:88vh;max-height:88dvh;overflow:auto;background:var(--paper);border:3px double var(--ink);border-radius:8px;padding:16px;box-shadow:0 10px 30px #000a;transform:scale(.92);transition:transform .25s}#qm.on #qc{transform:none}
+.rs{font-size:1.5rem;font-weight:bold;text-align:center;margin-bottom:6px;animation:pop .5s both}.rs.ok{color:#2e7d32}.rs.no{color:var(--red)}.ex{background:#fff8e6;border-left:4px solid var(--gold);padding:8px;font-size:.9rem}
+.how ol{margin:6px 0 10px;padding-left:20px;font-size:.88rem;line-height:1.45}.how summary{cursor:pointer;padding:4px 0}.lni{width:100%}
+*{-webkit-tap-highlight-color:transparent}button,input,select{font-size:16px;min-height:44px;touch-action:manipulation}
+@media(max-width:480px){main{padding:8px}h1{font-size:1.2rem}.wrap{transform:rotateX(12deg)}.row>*{min-width:100%}.chip{font-size:.72rem}}
+body{background:radial-gradient(ellipse at 50% 0,#f6e7bd 0,#dbc189 45%,#a48649 100%)}
+body::before{content:"";position:fixed;inset:0;z-index:-2;opacity:.16;background:radial-gradient(circle at 50% 100%,transparent 0 9px,#5a3b1e 9px 10px,transparent 10px 15px,#5a3b1e 15px 16px,transparent 16px 21px,#5a3b1e 21px 22px,transparent 22px) 0 0/44px 22px}
+h1{font-family:Impact,'Arial Black','Arial Narrow Bold',sans-serif;font-size:2.1rem;letter-spacing:3px;color:#c73b2b;text-shadow:2px 2px 0 #f8ecc9,4px 4px 0 #2b1d14}h1 small{font-family:Georgia,serif;text-shadow:none;color:#2b1d14}
+.card{border-radius:16px;border:2px solid #7a5a2b;background:linear-gradient(#f9eecd,#ecd9a6);box-shadow:0 6px 0 #0003,inset 0 0 0 4px #f9eecd,inset 0 0 0 5px #b8964f}
+button{border-radius:999px;border:2px solid #2b1d14;background:linear-gradient(#e8604b,#b3201f);color:#fff8e6;padding:11px 22px;text-shadow:0 1px 0 #0006;box-shadow:0 4px 0 #5a0f0f,0 8px 10px #0003;letter-spacing:.3px}
+button:active{transform:translateY(3px);box-shadow:0 1px 0 #5a0f0f}
+.b-blue{background:linear-gradient(#4a78bd,#23395d);box-shadow:0 4px 0 #101c30,0 8px 10px #0003}.b-green{background:linear-gradient(#8cb25a,#4a6b2a);box-shadow:0 4px 0 #2a3d16,0 8px 10px #0003}.b-gold{background:linear-gradient(#f5d06a,#c8902a);color:#2b1d14;text-shadow:none;box-shadow:0 4px 0 #6b4a10,0 8px 10px #0003}
+input,select{border-radius:999px;border:2px solid #7a5a2b;background:#fffaf0;padding:10px 18px;box-shadow:inset 0 2px 4px #0002}input:focus,select:focus{outline:none;border-color:#c73b2b;box-shadow:0 0 0 3px #c73b2b44}
+.opt{border-radius:16px;background:linear-gradient(#fffaf0,#f1e2bd);color:#2b1d14;border:2px solid #7a5a2b;box-shadow:0 3px 0 #7a5a2b;text-shadow:none;padding:12px 16px}
+.msg{border-radius:12px;background:linear-gradient(#23395d,#162640)}#qc{border-radius:20px}.chip{border-radius:999px}
+.hero{text-align:center;margin:2px 0 6px}.hero svg{width:104px;animation:bn 3.5s ease-in-out infinite}.hero p{margin:2px 0 0;font-style:italic;color:#2b1d14}
+.mode{position:relative;margin:12px 0;padding:12px 14px 12px 22px;border-radius:18px;background:#fffaf0cc;border:2px solid var(--mc);overflow:hidden;box-shadow:0 4px 0 #0002;animation:up .5s both}
+.mode::before{content:"";position:absolute;left:0;top:0;bottom:0;width:9px;background:var(--mc)}.mode h3{margin:0 0 8px;font-size:1rem;color:var(--mc)}
+.m0{--mc:#c8902a}.m1{--mc:#23395d}.m2{--mc:#4a6b2a}.m3{--mc:#b3201f}.mode:nth-of-type(2){animation-delay:.1s}.m2{animation-delay:.2s}.m3{animation-delay:.3s}
+.env{position:relative;margin:14px 0;padding:50px 14px 14px;border:2px solid #7a5a2b;border-radius:12px;background:linear-gradient(#fbf1d4,#ecd9a6);cursor:pointer;text-align:center;color:#2b1d14;box-shadow:0 6px 0 #0003;transition:transform .25s;overflow:hidden;animation:up .5s .05s both}
+.env::before{content:"";position:absolute;left:0;right:0;top:0;height:56%;background:linear-gradient(to bottom right,#d9bf86 49%,transparent 50%) left/50% 100% no-repeat,linear-gradient(to bottom left,#d9bf86 49%,transparent 50%) right/50% 100% no-repeat}
+.env:hover{transform:translateY(-3px) rotate(-.7deg)}.env .et{font-weight:bold;font-size:1.1rem;position:relative}.env small{opacity:.7}
+.seal{position:absolute;left:50%;top:10px;transform:translateX(-50%);width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#e8604b,#8d1414);color:#f8ecc9;display:grid;place-items:center;font-size:1.5rem;box-shadow:0 3px 6px #0006;z-index:1}.env.open .seal{animation:pop .5s both}
+#sc{position:fixed;inset:0;display:grid;place-items:center;padding:12px;background:#0000;opacity:0;pointer-events:none;transition:opacity .3s,background .3s;z-index:45}#sc.on{opacity:1;pointer-events:auto;background:#000b}
+.scr{width:min(94vw,460px)}.rod{height:22px;border-radius:12px;background:linear-gradient(#8a5a2b,#d3a666 40%,#5a3b1e);box-shadow:0 4px 8px #0008;position:relative}
+.rod::before,.rod::after{content:"";position:absolute;top:-5px;bottom:-5px;width:14px;border-radius:7px;background:#3d2a10}.rod::before{left:-9px}.rod::after{right:-9px}
+.pp{max-height:0;overflow:hidden;margin:0 10px;background:linear-gradient(90deg,#e2cb92,#f8ebc4 12%,#f8ebc4 88%,#e2cb92);transition:max-height 1.3s cubic-bezier(.3,.7,.2,1);box-shadow:inset 0 0 22px #8a6a2b66}
+#sc.on .pp{max-height:min(64vh,440px)}#sc.done .pp{overflow:auto}.pp .in{padding:16px 18px;opacity:0;transition:opacity .6s .7s}#sc.on .pp .in{opacity:1}
+.pp h2{text-align:center;margin:0 0 8px;color:#b3201f;letter-spacing:2px;font-size:1.1rem}.pp li{margin:7px 0;font-size:.92rem;line-height:1.5}
+@media(max-width:480px){h1{font-size:1.6rem}}
+.noise{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/><feColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .1 0 0 0 .14 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>")}
+main{max-width:1100px}#menu{max-width:560px;margin:0 auto}
+.card{border-radius:26px 14px 24px 16px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/><feColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .1 0 0 0 .14 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>"),linear-gradient(#f9eecd,#ecd9a6)}
+.mode{border-radius:22px 12px 20px 14px}
+.fuji{position:fixed;left:0;bottom:0;width:100%;height:32vh;opacity:.22;z-index:-1;pointer-events:none}
+.bam{position:fixed;top:0;bottom:0;width:24px;border-radius:12px;display:none;z-index:-1;opacity:.5;background:repeating-linear-gradient(to bottom,transparent 0 110px,#2d4a18 110px 115px),linear-gradient(90deg,#3b5a22,#9cc46a 40%,#3b5a22)}
+.pet{position:fixed;top:-30px;border-radius:150% 0 150% 0;background:linear-gradient(135deg,#f9c9d3,#e98fa6);opacity:.75;pointer-events:none;z-index:-1;animation:fall linear infinite}
+@keyframes fall{to{transform:translate(90px,110vh) rotate(540deg)}}
+#cam{position:relative;transform-origin:0 0;will-change:transform}
+.wrap{overflow:hidden;border:9px solid #6b4423;border-radius:24px;transform:rotateX(13deg);background:repeating-linear-gradient(90deg,#6b4423 0 7px,#7b552d 7px 10px);box-shadow:inset 0 0 0 3px #d9a441,0 8px 0 #3d2a10,0 14px 0 #2a1b09,0 26px 30px #000a}
+.c{margin:2px;border:0;border-radius:11px;background:radial-gradient(circle at 30% 25%,#f8eed0,#e4d29d);box-shadow:inset 0 -3px 0 #0002,inset 0 2px 0 #fff7;font-family:Georgia,serif;font-style:italic}
+.c:nth-child(even){background:radial-gradient(circle at 30% 25%,#e9efcb,#c8d59b)}
+.c.l{background:radial-gradient(circle at 30% 25%,#e0f2b8,#8fbf55)}.c.s{background:radial-gradient(circle at 30% 25%,#f9cbbf,#d9705e)}.c.f{background:radial-gradient(circle at 30% 25%,#fde9a0,#e0a52c)}
+.stage{width:min(100%,calc(100vh - 215px));width:min(100%,calc(100dvh - 215px));min-width:min(100%,290px);margin:0 auto;padding:0 0 14px}
+.side{display:flex;flex-direction:column}#pn{order:-1}
+.pr{display:flex;gap:8px;align-items:center;padding:6px 8px;border-radius:14px;transition:all .3s}.pr.on{background:#f5d06a99;box-shadow:0 0 0 2px #c73b2b;transform:scale(1.02)}.pr .mi svg{width:26px;height:32px}
+.pb{flex:1;min-width:0}.pt{display:flex;justify-content:space-between;font-size:.85rem;gap:6px}.bar{height:8px;border-radius:6px;background:#0002;overflow:hidden;margin-top:3px}.bar i{display:block;height:100%;border-radius:6px;transition:width .9s}
+.code{font-size:1.3rem;letter-spacing:4px;color:#b3201f}.sm{padding:6px 16px;min-height:38px;font-size:.9rem}.rc{font-size:.9rem}
+.lr{font-size:.82rem;padding:5px 0;border-bottom:1px dashed #7a5a2b66;animation:up .4s both}
+body.g h1{font-size:1.15rem;margin:0 0 4px}body.g h1 small{display:none}body.g main{padding-top:4px}
+@media(max-width:899px){#hd{display:grid;grid-template-columns:1fr 1fr;gap:4px 8px}#hd .rc,#hd button{grid-column:1/-1}#hd button{justify-self:center}#lg .lr:nth-child(n+4){display:none}.card{margin:6px 0}}
+@media(min-width:900px){#game:not(.hid){display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:22px;align-items:start}.stage{width:min(100%,calc(100vh - 100px));width:min(100%,calc(100dvh - 100px))}#pn{order:0}.bam{display:block}body.g h1{font-size:1.4rem}}
+body:not(.g)::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;background:radial-gradient(ellipse at center,transparent 50%,#2b1d1499 100%)}
+.kop{font-family:'Courier New',monospace;font-size:.72rem;letter-spacing:2px;margin:4px 0 0;border-top:2px solid #2b1d14;border-bottom:2px solid #2b1d14;padding:3px 0;color:#2b1d14;font-weight:bold}
+.mode{overflow:visible;font-family:'Courier New',monospace;border:1px solid #8a6a2b;border-radius:3px 7px 4px 9px;transform:rotate(var(--r,0deg));box-shadow:0 5px 0 #0002,0 12px 18px #0005,inset 0 0 30px #7a5a2b66;
+background:radial-gradient(ellipse at 14% 12%,#b98f4a66,transparent 32%),radial-gradient(ellipse at 92% 88%,#8a5a2b55,transparent 38%),url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/><feColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .1 0 0 0 .2 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>"),linear-gradient(#ecd9a6,#d6bb80)}
+.m0{--r:-.5deg}.m1{--r:.6deg}.m2{--r:-.4deg}.m3{--r:.5deg}
+.mode::before{left:50%;top:-9px;bottom:auto;width:78px;height:20px;transform:translateX(-50%) rotate(-3deg);background:#efe0a8bb;border:1px solid #b8a46c;box-shadow:0 1px 3px #0004}
+.mode::after{content:"";position:absolute;right:0;bottom:0;width:26px;height:26px;background:linear-gradient(135deg,transparent 50%,#9a7a3e 50%,#c9ab6a);box-shadow:-2px -2px 4px #0003}
+.mode h3{font-family:'Courier New',monospace;text-transform:uppercase;letter-spacing:1px;font-size:.9rem;border-bottom:2px dashed var(--mc);padding-bottom:4px}
+.mode input,.mode select{background:#f7edd0;font-family:'Courier New',monospace}
+.env{border:1px solid #8a6a2b;border-radius:4px;transform:rotate(-1deg);font-family:'Courier New',monospace;box-shadow:0 6px 0 #0002,0 14px 18px #0005,inset 0 0 36px #7a5a2b77;
+background:radial-gradient(ellipse at 12% 20%,#a8803c66,transparent 30%),radial-gradient(ellipse at 88% 80%,#8a5a2b66,transparent 34%),url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/><feColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .1 0 0 0 .2 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>"),linear-gradient(#e6d09a,#cdb176)}
+.env:hover{transform:rotate(-.2deg) translateY(-3px)}
+.stamp{position:absolute;right:12px;top:10px;border:3px double #b3201f;color:#b3201f;padding:1px 8px;font-weight:bold;letter-spacing:2px;transform:rotate(9deg);font-size:.8rem;opacity:.85;z-index:1;mix-blend-mode:multiply}
+.pp{box-shadow:inset 0 0 46px #6b4a1eaa,inset 0 0 0 2px #8a6a2b66;
+background:radial-gradient(ellipse at 18% 14%,#b98f4a77,transparent 30%),radial-gradient(ellipse at 86% 68%,#8a5a2b66,transparent 36%),radial-gradient(circle at 60% 42%,#e2cd98,transparent 45%),url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/><feColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .1 0 0 0 .2 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>"),linear-gradient(90deg,#c4a15c,#e6d29c 10%,#ead8a6 50%,#e6d29c 90%,#c4a15c)}
+.pp .in{position:relative;font-family:'Courier New',monospace;color:#33230f;text-shadow:0 0 1px #33230f77}
+.pp .in::before{content:"";position:absolute;left:0;right:0;top:36%;height:3px;background:linear-gradient(90deg,transparent,#6b4a1e66 30%,#fff5 50%,#6b4a1e66 70%,transparent)}
+.pp h2{font-family:Impact,'Arial Black',sans-serif;display:block;width:max-content;max-width:100%;margin:0 auto 10px;border:3px double #b3201f;padding:2px 14px;transform:rotate(-2deg);font-weight:normal;mix-blend-mode:multiply}
+.m svg{filter:drop-shadow(2px 3px 0 #0005) drop-shadow(0 5px 4px #0004);transform-origin:50% 100%;animation:sway 2.6s ease-in-out infinite alternate;width:2.7em;height:3.3em}
+@keyframes sway{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
+.c.l,.c.s{position:relative;z-index:1;box-shadow:inset 0 -3px 0 #0002,0 2px 0 #0006,0 5px 6px #0004}
+.tok{width:5.2%;transform:translate(-50%,-72%)}.tok.sol{width:7%}#tk{z-index:3}svg.ov{z-index:1}
+#mkl{position:absolute;inset:0;pointer-events:none;z-index:2}.mkr{position:absolute;transform:translate(-50%,-100%);line-height:1}
+.mkr.j{width:6.4%}.mkr.j svg{width:100%;display:block;filter:drop-shadow(2px 3px 0 #0005) drop-shadow(0 5px 4px #0004);transform-origin:50% 100%;animation:sway 2.6s ease-in-out infinite alternate}
+.mkr.b{font-size:5.6cqw;filter:drop-shadow(1px 3px 1px #0008)}.c.l,.c.s{z-index:auto}
+.hid{display:none}.err{color:var(--red);font-weight:bold;font-size:.85rem}
+</style></head><body><svg class="fuji" viewBox="0 0 800 200" preserveAspectRatio="none"><path d="M0 200V172L170 152L300 92L365 42L400 20L435 42L500 92L640 150L800 166V200Z" fill="#5f7390"/><path d="M365 42L400 20L435 42L418 54L400 46L382 54Z" fill="#fff"/></svg><div class="bam" style="left:14px"></div><div class="bam" style="right:14px"></div><div class="sun"></div><main>
+<h1>大日本 ・ ULAR TANGGA<small>KUIS PENDUDUKAN JEPANG DI INDONESIA</small></h1>
+<div id="menu">
+<div class="hero"><svg viewBox="0 0 100 100"><g stroke="#c73b2b" stroke-width="3.2" stroke-linecap="round"><line x1="80.0" y1="50.0" x2="97.0" y2="50.0"/><line x1="78.2" y1="60.3" x2="94.2" y2="66.1"/><line x1="73.0" y1="69.3" x2="86.0" y2="80.2"/><line x1="65.0" y1="76.0" x2="73.5" y2="90.7"/><line x1="55.2" y1="79.5" x2="58.2" y2="96.3"/><line x1="44.8" y1="79.5" x2="41.8" y2="96.3"/><line x1="35.0" y1="76.0" x2="26.5" y2="90.7"/><line x1="27.0" y1="69.3" x2="14.0" y2="80.2"/><line x1="21.8" y1="60.3" x2="5.8" y2="66.1"/><line x1="20.0" y1="50.0" x2="3.0" y2="50.0"/><line x1="21.8" y1="39.7" x2="5.8" y2="33.9"/><line x1="27.0" y1="30.7" x2="14.0" y2="19.8"/><line x1="35.0" y1="24.0" x2="26.5" y2="9.3"/><line x1="44.8" y1="20.5" x2="41.8" y2="3.7"/><line x1="55.2" y1="20.5" x2="58.2" y2="3.7"/><line x1="65.0" y1="24.0" x2="73.5" y2="9.3"/><line x1="73.0" y1="30.7" x2="86.0" y2="19.8"/><line x1="78.2" y1="39.7" x2="94.2" y2="33.9"/></g><circle cx="50" cy="50" r="22" fill="#c73b2b" stroke="#2b1d14" stroke-width="2"/><circle cx="43" cy="43" r="6" fill="#fff" opacity=".25"/></svg><p class="kop">DJAKARTA · TAHUN 2602 · BERITA RAHASIA</p><p>Jawab dengan benar, raih kemerdekaan!</p></div>
+<div class="env" id="env" role="button" tabindex="0"><span class="stamp">RAHASIA</span><span class="seal">令</span><div class="et">Surat Petunjuk Permainan</div><small>Ketuk untuk membuka gulungan</small></div>
+<div class="mode m0"><h3>✍️ Namamu</h3><div class="row"><input id="nm" placeholder="Nama untuk mode online dan lawan komputer" maxlength="12"></div></div>
+<div class="mode m1"><h3>🌐 Main Online — sampai 4 pemain</h3><div class="row"><button class="b-blue" id="mk">Buat Ruangan Baru</button></div><div class="row"><input id="cd" placeholder="Kode ruangan" maxlength="4" style="text-transform:uppercase"><button class="b-blue" id="jn">Gabung</button></div></div>
+<div class="mode m2"><h3>👥 Satu Perangkat — gantian</h3><div class="row" id="ln"></div><div class="row"><select id="lc"><option value="2">2 pemain</option><option value="3">3 pemain</option><option value="4">4 pemain</option></select><button class="b-green" id="lcb">Mulai Main</button></div></div>
+<div class="mode m3"><h3>🤖 Lawan Komputer</h3><div class="row"><select id="bt"><option value="1">1 komputer</option><option value="2">2 komputer</option><option value="3">3 komputer</option></select><button class="b-gold" id="btb">Tantang!</button></div></div>
+<div id="er" class="err" style="text-align:center"></div><div id="cn" style="font-size:.8rem;text-align:center">Menghubungkan ke server…</div>
+</div>
+<div id="sc"><div class="scr"><div class="rod"></div><div class="pp"><div class="in"><h2>— PETUNJUK PERMAINAN —</h2><ol><li>Pilih mode: online (buat atau gabung ruangan, maksimal 4 pemain), satu perangkat (isi nama pemain), atau lawan komputer.</li><li>Saat giliranmu, kocok dadu. Bidakmu langsung maju sesuai angka dadu.</li><li>Setelah maju, jawab satu pertanyaan sejarah pendudukan Jepang. Benar: kamu bertahan di kotak itu. Salah: kamu mundur ke kotak semula.</li><li>Kotak 🚲 (sepeda tentara Jepang): jika menjawab benar, kamu naik ke kotak yang lebih tinggi.</li><li>Kotak prajurit Jepang: begitu kamu mendarat di sini, kamu langsung ditangkap dan dipaksa kerja paksa turun ke kotak yang lebih rendah, tanpa pertanyaan.</li><li>Dadu yang melebihi kotak 100 tidak membuatmu maju. Yang pertama menjawab benar di kotak 100 menang!</li></ol><p style="text-align:center;margin:10px 0 0;color:#b3201f"><b>Merdeka atau mati!</b></p></div></div><div class="rod"></div><div style="text-align:center;margin-top:16px"><button class="b-gold" id="scx">Tutup Gulungan</button></div></div></div>
+<div id="game" class="hid"><div class="stage"><div class="wrap"><div id="cam"><div id="board"></div><svg class="ov" viewBox="0 0 100 100" preserveAspectRatio="none" id="ov"></svg><div id="tk"></div></div></div></div><div class="side"><div class="card" id="hd"></div><div class="card" id="pn"></div><div class="card" id="lg"></div></div></div></main><div id="dv"><div><div id="dd"></div><div id="dl"></div></div></div><div id="qm"><div id="qc"></div></div>
+<script>
+const Q=`Tahun Jepang mulai menduduki Indonesia?|1942|1945|1939
+Belanda menyerah tanpa syarat kepada Jepang di?|Kalijati|Linggarjati|Renville
+Jepang menyerah kepada Sekutu pada tahun?|1945|1947|1943
+Pimpinan pemerintahan militer Jepang di Jawa disebut?|Gunseikan|Residen|Tenno
+Tentara ke-16 Jepang menguasai wilayah?|Jawa|Sumatra|Papua
+Tentara ke-25 Jepang menguasai wilayah?|Sumatra|Jawa|Bali
+Wilayah Indonesia timur dikuasai oleh?|Angkatan Laut (Kaigun)|Tentara ke-16|Tentara ke-25
+Semboyan Gerakan 3A adalah?|Nippon Cahaya, Pelindung, Pemimpin Asia|Merdeka atau Mati|Bersatu Teguh
+Tokoh pemimpin Gerakan 3A?|Mr. Syamsuddin|Moh. Hatta|Sutan Sjahrir
+Singkatan Pusat Tenaga Rakyat?|Putera|Peta|Heiho
+Salah satu tokoh Empat Serangkai Putera?|Ki Hajar Dewantara|Sutan Sjahrir|Tan Malaka
+Putera digantikan oleh organisasi?|Jawa Hokokai|Masyumi|Seinendan
+Peta merupakan singkatan dari?|Pembela Tanah Air|Pasukan Tempur Asia|Persatuan Tanah Air
+Peta dibentuk pada tahun?|1943|1942|1945
+Heiho adalah?|Prajurit pembantu tentara Jepang|Polisi desa|Guru sekolah
+Pekerja paksa zaman Jepang disebut?|Romusha|Heiho|Seinendan
+Seinendan adalah organisasi?|Pemuda|Wanita|Petani
+Fujinkai adalah organisasi?|Wanita|Pemuda|Pedagang
+Keibodan bertugas sebagai?|Pembantu polisi|Pasukan laut|Pengajar
+Tonarigumi setara dengan?|Rukun Tetangga|Koperasi|Kecamatan
+Bahasa yang dilarang digunakan pada masa Jepang?|Belanda|Indonesia|Jawa
+Penghormatan menghadap Tokyo setiap pagi disebut?|Seikerei|Kinrohoshi|Taiso
+Senam pagi wajib zaman Jepang disebut?|Taiso|Seikerei|Kumiai
+Lagu kebangsaan Jepang?|Kimigayo|Indonesia Raya|Sakura
+Kaisar Jepang saat Perang Dunia II?|Hirohito|Meiji|Akihito
+Batavia diganti namanya oleh Jepang menjadi?|Jakarta|Surakarta|Nusantara
+Badan Pertimbangan Pusat bentukan Jepang?|Chuo Sangi In|Volksraad|BPUPKI
+Ketua Chuo Sangi In?|Soekarno|Moh. Hatta|Radjiman
+Janji kemerdekaan di kemudian hari disampaikan PM?|Koiso|Tojo|Terauchi
+Janji Koiso diumumkan pada tahun?|1944|1942|1945
+BPUPKI dalam bahasa Jepang disebut?|Dokuritsu Junbi Cosakai|Chuo Sangi In|Jawa Hokokai
+Ketua BPUPKI?|dr. Radjiman Wedyodiningrat|Soekarno|Moh. Yamin
+Tugas BPUPKI adalah?|Menyelidiki persiapan kemerdekaan|Melatih tentara|Mengumpulkan padi
+Pidato lahirnya Pancasila diucapkan pada?|1 Juni 1945|17 Agustus 1945|22 Juni 1945
+Piagam Jakarta ditandatangani pada?|22 Juni 1945|1 Juni 1945|18 Agustus 1945
+Panitia Sembilan diketuai oleh?|Soekarno|Moh. Hatta|Ahmad Soebardjo
+PPKI dibentuk pada?|7 Agustus 1945|1 Maret 1945|17 Agustus 1945
+Ketua PPKI?|Soekarno|Radjiman|Sukarni
+Bom atom pertama dijatuhkan di kota?|Hiroshima|Nagasaki|Tokyo
+Bom atom kedua dijatuhkan di kota?|Nagasaki|Hiroshima|Osaka
+Marsekal yang memanggil Soekarno-Hatta ke Dalat?|Terauchi|Imamura|Yamashita
+Dalat terletak di negara?|Vietnam|Filipina|Thailand
+Soekarno-Hatta dibawa golongan muda ke?|Rengasdengklok|Bandung|Surabaya
+Tokoh golongan muda?|Sukarni|Ahmad Soebardjo|Moh. Hatta
+Naskah proklamasi diketik oleh?|Sayuti Melik|Fatmawati|Moh. Yamin
+Naskah proklamasi dirumuskan di rumah?|Laksamana Maeda|Soekarno|Hatta
+Laksamana Maeda berasal dari angkatan?|Laut|Darat|Udara
+Bendera Pusaka dijahit oleh?|Fatmawati|Kartini|Dewi Sartika
+Pembaca teks proklamasi?|Soekarno|Hatta|Sukarni
+Proklamasi dibacakan di Jalan?|Pegangsaan Timur 56|Malioboro|Asia Afrika
+Pengibar bendera saat proklamasi?|Latief Hendraningrat|Sayuti Melik|Sukarni
+Pemberontakan Peta di Blitar dipimpin?|Supriyadi|Soedirman|Gatot Subroto
+Pemberontakan Peta Blitar terjadi pada tahun?|1945|1942|1944
+Pemberontakan di Singaparna dipimpin?|K.H. Zainal Mustafa|Pangeran Diponegoro|Imam Bonjol
+Pemberontakan Cot Plieng terjadi di?|Aceh|Bali|Maluku
+Pemimpin pemberontakan Cot Plieng?|Teungku Abdul Djalil|Cut Nyak Dien|Teuku Umar
+Romusha dipaksa membangun jalur kereta api di?|Saketi–Bayah|Batavia–Bogor|Surabaya–Malang
+Jalur kereta Muaro–Pekanbaru dikerjakan di pulau?|Sumatra|Jawa|Sulawesi
+Kebijakan Jepang terhadap hasil padi petani?|Wajib setor padi|Ekspor bebas|Subsidi penuh
+Rakyat kekurangan pakaian sehingga memakai?|Karung goni|Sutra|Wol
+Tanaman wajib untuk bahan bakar perang?|Jarak|Teh|Cengkih
+Uang yang diedarkan Jepang disebut?|Uang pendudukan|Gulden|Ringgit
+Sekolah dasar zaman Jepang disebut?|Kokumin Gakko|Chu Gakko|Daigaku
+Kantor berita Jepang di Indonesia?|Domei|Antara|Reuters
+Surat kabar terbitan zaman Jepang?|Asia Raya|Kompas|Tempo
+MIAI diganti Jepang menjadi?|Masyumi|NU|Muhammadiyah
+Tokoh pemimpin Masyumi?|K.H. Hasyim Asy’ari|Soekarno|Hatta
+Departemen propaganda Jepang?|Sendenbu|Gunseikanbu|Kempeitai
+Polisi militer Jepang yang ditakuti?|Kempeitai|Heiho|Peta
+Karesidenan zaman Jepang disebut?|Syu|Ken|Ku
+Kabupaten zaman Jepang disebut?|Ken|Syu|Ku
+Desa zaman Jepang disebut?|Ku|Son|Syu
+Kecamatan zaman Jepang disebut?|Son|Ken|Syu
+Panglima Tentara ke-16 yang mendarat di Jawa?|Imamura|Tojo|Yamashita
+Pertempuran Laut Jawa terjadi pada tahun?|1942|1944|1945
+Kota di Kalimantan yang diserang Jepang Januari 1942?|Tarakan|Sabang|Merauke
+Kota di Sumatra yang diserang pasukan payung Jepang?|Palembang|Medan|Padang
+Gubernur Jenderal Hindia Belanda terakhir?|Tjarda van Starkenborgh Stachouwer|Daendels|Van Heutsz
+Letnan Jenderal Belanda yang menyerah di Kalijati?|Ter Poorten|Van Mook|Spoor
+Soekarno diasingkan Belanda sebelum Jepang datang ke?|Bengkulu|Banda Neira|Boven Digul
+Hatta dan Sjahrir diasingkan Belanda ke?|Banda Neira|Bengkulu|Flores
+Pemimpin gerakan bawah tanah anti-Jepang?|Sutan Sjahrir|Soekarno|Hatta
+Tokoh sayap kiri yang ditangkap Jepang 1943?|Amir Syarifuddin|Radjiman|Sukarni
+Soekarno-Hatta menerima bintang dari Kaisar di?|Tokyo|Osaka|Kyoto
+Pasukan sukarela bentukan Jepang di Sumatra?|Giyugun|Heiho|Keibodan
+Daidancho memimpin pasukan setingkat?|Batalyon|Regu|Divisi
+Chudancho memimpin pasukan setingkat?|Kompi|Batalyon|Resimen
+Shodancho memimpin pasukan setingkat?|Peleton|Kompi|Batalyon
+Budancho memimpin pasukan setingkat?|Regu|Peleton|Kompi
+Jepang menyebut dirinya sebagai?|Saudara Tua|Penjajah|Pelindung dunia
+Slogan Hakko Ichiu berarti?|Dunia satu keluarga|Merdeka|Asia untuk Asia
+Kinrohoshi berarti?|Kerja bakti|Upacara|Pasar
+Jepang mulai kalah dalam perang di?|Pasifik|Eropa|Afrika
+Jepang menyerang Pearl Harbor pada tahun?|1941|1942|1939
+Pelabuhan Amerika yang diserang Jepang 1941?|Pearl Harbor|San Francisco|Manila
+Proklamasi dibacakan pukul?|10.00|08.00|12.00
+Hari Kemerdekaan Republik Indonesia?|17 Agustus 1945|17 Agustus 1944|1 Juni 1945
+Wakil Presiden pertama RI?|Moh. Hatta|Sutan Sjahrir|Adam Malik
+Presiden pertama RI?|Soekarno|Soeharto|Hatta`.split('\n').map(l=>l.split('|'));
+const L={3:56,19:64,20:41,26:67,36:55,42:83},S={25:4,29:10,50:28,53:14,72:51,95:73,97:65,99:60},J={...L,...S},ctl=(x1,y1,x2,y2)=>[(x1+x2)/2+((x1+x2)/2<50?6:-6),(y1+y2)/2];
+const COL=['#b3201f','#1d4e89','#2e7d32','#e0a800'],$=i=>document.getElementById(i),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let st=null,db=null,ref=null,unsub=null,local=false,me=Math.random().toString(36).slice(2,8),code='',opts=null,okey='',busy=false;
+const pos=n=>{const r=(n-1)/10|0,k=(n-1)%10,c=r%2?9-k:k;return[c*10+5,(9-r)*10+5]};
+const mine=()=>local?!st.players[st.turn].bot:(st&&st.players[st.turn]&&st.players[st.turn].id===me);
+try{claude.use('db').then(d=>{db=d;$('cn').textContent=d?'Mode online siap.':'Mode online tidak tersedia di tampilan ini — gunakan mode 1 perangkat.';}).catch(()=>{$('cn').textContent='Mode online tidak tersedia.'})}catch(e){$('cn').textContent='Mode online tidak tersedia.'}
+setTimeout(()=>{if(!db&&$('cn').textContent.startsWith('Meng'))$('cn').textContent='Mode online belum tersambung — coba muat ulang.'},10000);
+const nm=()=>($('nm').value.trim()||'Pemain').slice(0,12),err=t=>$('er').textContent=t;
+function newSt(pl){return{players:pl,turn:0,phase:'lobby',host:me,roll:0,from:1,to:1,msg:'Menunggu pemain…',winner:''}}
+async function save(s){if(local){st=s;render()}else{try{await ref.set(s)}catch(e){err('Gagal menyimpan: '+(e.message||e.code))}}}
+function listen(){unsub&&unsub();unsub=ref.onSnapshot(sn=>{if(sn.exists){st=sn.data();render()}},e=>err('Koneksi terputus'))}
+$('mk').onclick=async()=>{if(!db)return err('Mode online belum tersedia.');code=Array.from({length:4},()=>'ABCDEFGHJKLMNPQRSTUVWXYZ'[Math.random()*24|0]).join('');ref=db.doc('rooms/'+code);try{await ref.set(newSt([{id:me,n:nm(),pos:1}]));local=false;listen()}catch(e){err('Gagal membuat ruangan: '+(e.message||e.code))}};
+$('jn').onclick=async()=>{if(!db)return err('Mode online belum tersedia.');code=$('cd').value.trim().toUpperCase();if(code.length<4)return err('Masukkan kode 4 huruf.');ref=db.doc('rooms/'+code);try{const sn=await ref.get();if(!sn.exists)return err('Ruangan tidak ditemukan.');const s=sn.data();if(!s.players.some(p=>p.id===me)){if(s.phase!=='lobby')return err('Permainan sudah dimulai.');if(s.players.length>=4)return err('Ruangan penuh (maks 4).');s.players.push({id:me,n:nm(),pos:1});await ref.set(s)}local=false;listen()}catch(e){err('Gagal bergabung: '+(e.message||e.code))}};
+$('lcb').onclick=()=>{local=true;code='';st=newSt(Array.from({length:+$('lc').value},(_,i)=>({id:'p'+i,n:'Pemain '+(i+1),pos:1})));render()};
+let bt;
+$('btb').onclick=()=>{local=true;const n=+$('bt').value,v=$('nm').value.trim();st=newSt([{id:'p0',n:(v||'Kamu').slice(0,12),pos:1},...Array.from({length:n},(_,i)=>({id:'b'+i,n:'Komputer '+(i+1),pos:1,bot:true}))]);render()};
+function botPlay(){clearTimeout(bt);if(!local||!st)return;const c=st.players[st.turn];if(!c||!c.bot)return;const ph=st.phase,tn=st.turn;if(ph==='roll')bt=setTimeout(()=>{if(local&&st&&st.phase===ph&&st.turn===tn)roll()},1300);else if(ph==='answer')bt=setTimeout(()=>{if(local&&st&&st.phase===ph&&st.turn===tn)ans(Math.random()<.6)},1800)}
+const cl=o=>JSON.parse(JSON.stringify(o));
+function start(){const s=cl(st);s.phase='roll';s.msg='Perang dimulai! Giliran '+s.players[0].n;save(s)}
+function nxt(s){s.turn=(s.turn+1)%s.players.length;s.phase='roll'}
+function roll(){if(busy)return;busy=true;const f='⚀⚁⚂⚃⚄⚅';let i=0;const iv=setInterval(()=>{const d=$('dc');d&&(d.textContent=f[Math.random()*6|0]);if(++i>8){clearInterval(iv);busy=false;const s=cl(st),p=s.players[s.turn],r=1+Math.random()*6|0;s.roll=r;s.from=p.pos;
+if(p.pos+r>100){s.msg=`${p.n} mengocok ${r} — melebihi kotak 100, tidak maju.`;nxt(s)}else{p.pos+=r;s.to=p.pos;s.phase='answer';s.msg=`${p.n} mengocok ${r} dan maju ke kotak ${p.pos}. Jawab dengan benar!`}save(s)}},70)}
+function ans(ok){const s=cl(st),p=s.players[s.turn],t=s.to;
+if(ok){const f=J[t]||t;p.pos=f;s.msg=`${p.n} benar! `+(L[t]?`Dijemput sepeda tentara Jepang 🚲 naik ke kotak ${f}.`:S[t]?`Tapi dipaksa kerja paksa ⛓️ turun ke kotak ${f}.`:`Bertahan di kotak ${t}.`);if(t===100){s.phase='over';s.winner=p.n}}
+else{p.pos=s.from;s.msg=`${p.n} salah dan kembali ke kotak ${s.from}.`}
+if(s.phase!=='over')nxt(s);save(s)}
+async function back(){clearTimeout(bt);const r=ref,s=st&&cl(st),wasLocal=local;unsub&&unsub();unsub=null;st=null;ref=null;local=false;code='';err('');$('game').classList.add('hid');$('menu').classList.remove('hid');
+if(!wasLocal&&r&&s&&s.phase==='lobby'){try{s.players=s.players.filter(p=>p.id!==me);if(!s.players.length)await r.delete();else{if(s.host===me)s.host=s.players[0].id;await r.set(s)}}catch(e){}}}
+function again(){const s=cl(st);s.players.forEach(p=>p.pos=1);s.phase='lobby';s.turn=0;s.winner='';s.msg='Main lagi!';save(s)}
+function render(){$('menu').classList.add('hid');$('game').classList.remove('hid');
+const tk={};st.players.forEach((p,i)=>(tk[p.pos]=tk[p.pos]||[]).push(`<i class="t" style="background:${COL[i]}"></i>`));
+let h='';for(let r=9;r>=0;r--)for(let k=0;k<10;k++){const n=r*10+(r%2?9-k:k)+1;h+=`<div class="c ${L[n]?'l':S[n]?'s':n===100?'f':''}"><span class="n">${n}</span>${L[n]?'<span class="m">🚲</span>':S[n]?'<span class="m">⛓️</span>':n===100?'<span class="m">🏯</span>':n===1?'<span class="m">🚩</span>':''}${(tk[n]||[]).join('')}</div>`}
+$('board').innerHTML=h;
+$('ov').innerHTML=Object.entries(L).map(([a,b])=>{const[x1,y1]=pos(a),[x2,y2]=pos(b);return`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#2e7d32" stroke-width="1.6" stroke-dasharray="3 1.5" opacity=".75"/>`}).join('')+Object.entries(S).map(([a,b])=>{const[x1,y1]=pos(a),[x2,y2]=pos(b),mx=(x1+x2)/2+6,my=(y1+y2)/2;return`<path d="M${x1} ${y1} Q${mx} ${my} ${x2} ${y2}" fill="none" stroke="#b3201f" stroke-width="1.4" stroke-dasharray="1 1.4" opacity=".8"/>`}).join('');
+const cur=st.players[st.turn];
+$('hd').innerHTML=(code?`<b>Kode ruangan: ${code}</b> — bagikan ke temanmu (maks 4)<br>`:'<b>Mode 1 perangkat</b><br>')+`<div class="pl" style="margin-top:6px">`+st.players.map((p,i)=>`<span class="chip ${st.phase!=='lobby'&&i===st.turn?'on':''}"><span class="dot" style="background:${COL[i]}"></span>${esc(p.n)}${p.id===me&&!local?' (kamu)':''} · ${p.pos}</span>`).join('')+'</div><div class="row"><button onclick="back()">← Kembali ke Menu</button></div>';
+let p=`<div class="msg">${esc(st.msg)}</div>`;
+if(st.phase==='lobby'){p+=`<p>Pemain: ${st.players.length}/4</p>`+((local||st.host===me)?`<button onclick="start()" ${st.players.length<2&&!local?'disabled':''}>Mulai Permainan</button>${st.players.length<2&&!local?'<p style="font-size:.8rem">Tunggu minimal 2 pemain.</p>':''}`:'<p>Menunggu tuan rumah memulai…</p>')}
+else if(st.phase==='roll'){p+=`<div class="dice" id="dc">${st.roll?'⚀⚁⚂⚃⚄⚅'[st.roll-1]:'🎲'}</div>`+(mine()?`<button style="width:100%" onclick="roll()">🎲 Kocok Dadu — giliran ${esc(cur.n)}</button>`:`<p style="text-align:center">Giliran ${esc(cur.n)}…</p>`)}
+else if(st.phase==='answer'){const q=Q[st.to-2];p+=`<div class="dice">${'⚀⚁⚂⚃⚄⚅'[st.roll-1]}</div><div class="q"><b>Kotak ${st.to}</b> — ${esc(q[0])}</div>`;
+if(mine()){const k=st.to+'-'+st.turn;if(okey!==k){okey=k;opts=q.slice(1).map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1])}p+=opts.map(o=>`<button class="opt" data-o="${esc(o)}">${esc(o)}</button>`).join('')}else p+=`<p>${esc(cur.n)} sedang menjawab…</p>`}
+else{p+=`<div class="dice">🏆</div><h2 style="text-align:center;margin:6px">${esc(st.winner)} Merdeka!</h2>`+((local||st.host===me)?'<button style="width:100%" onclick="again()">Main Lagi</button>':'')}
+$('pn').innerHTML=p;$('pn').querySelectorAll('.opt').forEach(b=>b.onclick=()=>{$('pn').querySelectorAll('.opt').forEach(x=>x.disabled=true);ans(b.dataset.o===Q[st.to-2][1])})
+botPlay()}
+const sleep=ms=>new Promise(r=>setTimeout(r,ms)),PK=['caping','blangkon','peci','sanggul'],OX=[-2.5,2.5,-2.5,2.5],OY=[-.4,-.4,3.2,3.2];
+let toks=[],dp=[],shown=null,built=false,qu=Promise.resolve(),ep=0;
+const PIP={1:[[5,5]],2:[[2.5,2.5],[7.5,7.5]],3:[[2.5,2.5],[5,5],[7.5,7.5]],4:[[2.5,2.5],[7.5,2.5],[2.5,7.5],[7.5,7.5]],5:[[2.5,2.5],[7.5,2.5],[5,5],[2.5,7.5],[7.5,7.5]],6:[[2.5,2.5],[7.5,2.5],[2.5,5],[7.5,5],[2.5,7.5],[7.5,7.5]]};
+const face=n=>`<svg viewBox="0 0 10 10"><rect x=".3" y=".3" width="9.4" height="9.4" rx="2" fill="#fff8e6" stroke="#2b1d14" stroke-width=".4"/>${PIP[n].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="${n===1?1.4:.9}" fill="${n===1?'#b3201f':'#2b1d14'}"/>`).join('')}</svg>`;
+function man(k,c){const sk=k==='jp'?'#e8bf93':'#b9794a',E='stroke="#2b1d14" stroke-width="1.3"';let h='',b=c;
+if(k==='caping')h=`<path d="M1 21 L20 3 L39 21 Q20 26 1 21Z" fill="#dcb85c" ${E}/><path d="M9 16 H31" stroke="#a07a2c"/>`;
+else if(k==='blangkon')h=`<path d="M11 19 Q11 9 20 9 Q29 9 29 19Z" fill="#6b4423" ${E}/><circle cx="29.5" cy="16" r="3" fill="#6b4423" ${E}/>`;
+else if(k==='peci')h='<rect x="12" y="9" width="16" height="9" rx="2" fill="#1c1c1c"/>';
+else if(k==='sanggul')h='<path d="M11 22 Q10 9 20 9 Q30 9 29 22 Q20 15 11 22Z" fill="#1c1c1c"/><circle cx="20" cy="6.5" r="4.5" fill="#1c1c1c"/>';
+else{b='#8b8650';h=`<rect x="8" y="17" width="4" height="9" fill="#8b8650"/><rect x="28" y="17" width="4" height="9" fill="#8b8650"/><path d="M10 18 Q10 7 20 7 Q30 7 30 18Z" fill="#8b8650" ${E}/><circle cx="20" cy="12" r="1.7" fill="#f6c94a"/>`}
+const ex=k==='jp'?'<path d="M16 23 h3 M22 23 h3" stroke="#2b1d14" stroke-width="1.3"/>':'<circle cx="17" cy="23" r="1.1" fill="#2b1d14"/><circle cx="23" cy="23" r="1.1" fill="#2b1d14"/>';
+const x=k==='jp'?'<circle cx="20" cy="41" r="3.6" fill="#fff"/><circle cx="20" cy="41" r="2.1" fill="#c00"/><path d="M37 20 V50" stroke="#2b1d14" stroke-width="2"/>':k==='sanggul'?'<path d="M16 32 L32 50" stroke="#f1e2bd" stroke-width="3"/>':'<path d="M20 32 V50" stroke="#2b1d14" stroke-width=".8"/>';
+return `<svg viewBox="0 0 40 50"><path d="M7 50 Q7 31 20 31 Q33 31 33 50Z" fill="${b}" ${E}/>${x}<circle cx="20" cy="23" r="8" fill="${sk}" ${E}/>${ex}${h}<path d="M10 34 Q8 42 8.5 49 H12 Q11.5 42 14 34Z" fill="#fff" opacity=".25"/><path d="M30 34 Q32 42 31.5 49 H28 Q28.5 42 27 34Z" fill="#000" opacity=".2"/></svg>`}
+function put(el,n,i,dx=0,dy=0){const[x,y]=pos(n);el.style.left=(x+OX[i]+dx)+'%';el.style.top=(y+OY[i]+dy)+'%'}
+function buildBoard(){built=true;let h='';for(let r=9;r>=0;r--)for(let k=0;k<10;k++){const n=r*10+(r%2?9-k:k)+1;h+=`<div class="c ${L[n]?'l':S[n]?'s':n===100?'f':''}"><span class="n">${n}</span>${L[n]?'<span class="m" style="font-size:1.5em">🚲</span>':S[n]?`<span class="m">${man('jp')}</span>`:n===100?'<span class="m" style="font-size:1.5em">🏯</span>':n===1?'<span class="m" style="font-size:1.5em">🚩</span>':''}</div>`}
+$('board').innerHTML=h;$('ov').innerHTML=Object.entries(L).map(([a,b])=>{const[x1,y1]=pos(a),[x2,y2]=pos(b);return`<line id="l${a}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#6b4423" stroke-width="2.2" stroke-linecap="round" opacity=".5"/><line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#f1e2bd" stroke-width=".5" stroke-dasharray="1.6 1.6"/>`}).join('')+Object.entries(S).map(([a,b])=>{const[x1,y1]=pos(a),[x2,y2]=pos(b);return`<path id="l${a}" d="M${x1} ${y1} Q${(x1+x2)/2+6} ${(y1+y2)/2} ${x2} ${y2}" fill="none" stroke="#b3201f" stroke-width="1.5" stroke-dasharray="2.4 .9" stroke-linecap="round" opacity=".65"/>`}).join('')}
+function mkToks(P){$('tk').innerHTML='';toks=P.map((p,i)=>{const d=document.createElement('div');d.className='tok';d.innerHTML=man(PK[i],COL[i]);$('tk').appendChild(d);dp[i]=p.pos;put(d,p.pos,i);return d})}
+async function dice(r,nm){const o=$('dv'),d=$('dd');$('dl').textContent=nm+' mengocok dadu…';d.className='roll';o.classList.add('on');await sleep(250);for(let i=0;i<9;i++){d.innerHTML=face(1+Math.random()*6|0);await sleep(95)}d.className='land';d.innerHTML=face(r);$('dl').textContent=nm+' mendapat '+r+'!';await sleep(1000);o.classList.remove('on');await sleep(300);d.className=''}
+async function walk(i,d,t){const dir=t>d?1:-1,el=toks[i];while(d!==t){d+=dir;dp[i]=d;put(el,d,i);el.firstElementChild.animate([{transform:'translateY(0)'},{transform:'translateY(-38%) scale(1.1)'},{transform:'translateY(0)'}],{duration:270,easing:'ease-out'});await sleep(dir>0?290:180)}await sleep(250)}
+function glide(el,so,i,a,c,b,ms){return new Promise(r=>{el.classList.add('nt');so&&so.classList.add('nt');const t0=performance.now(),f=now=>{let u=Math.min(1,(now-t0)/ms);u=u<.5?2*u*u:1-2*(1-u)*(1-u);const w=1-u,x=w*w*a[0]+2*w*u*c[0]+u*u*b[0],y=w*w*a[1]+2*w*u*c[1]+u*u*b[1];if(camS>1)camTo(x,y,camS,0);el.style.left=(x+OX[i])+'%';el.style.top=(y+OY[i])+'%';if(so){so.style.left=(x+OX[i]+3.4)+'%';so.style.top=(y+OY[i])+'%'}if(u<1)requestAnimationFrame(f);else{el.classList.remove('nt');so&&so.classList.remove('nt');r()}};requestAnimationFrame(f)})}
+async function ride(i,d,t,k){const el=toks[i],[x1,y1]=pos(d),[x2,y2]=pos(t),c=k==='L'?[(x1+x2)/2,(y1+y2)/2]:[(x1+x2)/2+6,(y1+y2)/2],ln=document.getElementById('l'+d);ln&&ln.classList.add('fl');let so=null;
+if(k==='L'){el.classList.add('bike');await sleep(400)}else{so=document.createElement('div');so.className='tok sol';so.innerHTML=man('jp');$('tk').appendChild(so);put(so,d,i,3.4,0);so.style.opacity=0;so.style.transition='opacity .4s';requestAnimationFrame(()=>so.style.opacity=1);so.firstElementChild.animate([{transform:'scale(.3)'},{transform:'scale(1.15)'},{transform:'scale(1)'}],{duration:450});el.classList.add('shake');await sleep(900)}
+await glide(el,so,i,[x1,y1],c,[x2,y2],k==='L'?1900:1700);el.classList.remove('bike','shake');ln&&ln.classList.remove('fl');
+if(so){so.style.opacity=0;await sleep(400);so.remove()}dp[i]=t;put(el,t,i);await sleep(300)}
+async function process(s){if(!st)return;const e=ep;$('menu').classList.add('hid');$('game').classList.remove('hid');if(!built)buildBoard();const P=s.players;if(toks.length!==P.length){mkToks(P);shown=null}
+if(!shown||s.phase==='lobby')P.forEach((p,i)=>{dp[i]=p.pos;put(toks[i],p.pos,i)});
+else{$('pn').classList.add('dim');if(s.rid&&s.rid!==shown.rid)await dice(s.roll,s.rn);for(let i=0;i<P.length;i++){const t=P[i].pos,d=dp[i];if(d===t)continue;if(s.ev==='L'||s.ev==='S')await ride(i,d,t,s.ev);else await walk(i,d,t)}}
+if(!st||e!==ep)return;shown=s;draw()}
+function render(){const s=st;qu=qu.then(()=>process(s)).catch(()=>{})}
+function draw(){if(!st)return;const cur=st.players[st.turn],act=st.phase==='roll'||st.phase==='answer';toks.forEach((t,i)=>t.classList.toggle('turn',act&&i===st.turn));
+$('hd').innerHTML=(code?`<b>Kode ruangan: ${code}</b> — bagikan ke temanmu (maks 4)<br>`:'<b>Mode 1 perangkat</b><br>')+`<div class="pl" style="margin-top:6px">`+st.players.map((p,i)=>`<span class="chip ${act&&i===st.turn?'on':''}"><span class="mi">${man(PK[i],COL[i])}</span>${esc(p.n)}${p.id===me&&!local?' (kamu)':''} · ${p.pos}</span>`).join('')+'</div><div class="row"><button onclick="back()">← Kembali ke Menu</button></div>';
+let p=`<div class="msg">${esc(st.msg)}</div>`;
+if(st.phase==='lobby'){p+=`<p>Pemain: ${st.players.length}/4</p>`+((local||st.host===me)?`<button onclick="start()" ${st.players.length<2&&!local?'disabled':''}>Mulai Permainan</button>${st.players.length<2&&!local?'<p style="font-size:.8rem">Tunggu minimal 2 pemain.</p>':''}`:'<p>Menunggu tuan rumah memulai…</p>')}
+else if(st.phase==='roll'){p+=mine()?`<button style="width:100%;margin-top:8px;font-size:1.1rem" onclick="roll()">🎲 Kocok Dadu — giliran ${esc(cur.n)}</button>`:`<p style="text-align:center">Giliran ${esc(cur.n)}…</p>`}
+else if(st.phase==='answer'){const qa=Q[st.to-2];p+=`<div class="q"><b>Kotak ${st.to}</b> — ${esc(qa[0])}</div>`;if(mine()){const k=st.to+'-'+st.turn;if(okey!==k){okey=k;opts=qa.slice(1).map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1])}p+=opts.map(o=>`<button class="opt" data-o="${esc(o)}">${esc(o)}</button>`).join('')}else p+=`<p>${esc(cur.n)} sedang menjawab…</p>`}
+else{p+=`<div class="trophy">🏆</div><h2 style="text-align:center;margin:6px">${esc(st.winner)} Merdeka!</h2>`+((local||st.host===me)?'<button style="width:100%" onclick="again()">Main Lagi</button>':'')}
+$('pn').innerHTML=p;$('pn').classList.remove('dim');$('pn').querySelectorAll('.opt').forEach(b=>b.onclick=()=>{$('pn').querySelectorAll('.opt').forEach(x=>x.disabled=true);ans(b.dataset.o===Q[st.to-2][1])});botPlay()}
+function roll(){if(!mine()||st.phase!=='roll')return;$('pn').classList.add('dim');const s=cl(st),p=s.players[s.turn],r=1+Math.random()*6|0;s.rid=(s.rid||0)+1;s.roll=r;s.rn=p.n;s.from=p.pos;s.ev='';
+if(p.pos+r>100){s.msg=`${p.n} mengocok ${r} — melebihi kotak 100, tidak maju.`;nxt(s)}else{p.pos+=r;s.to=p.pos;s.ev='walk';s.phase='answer';s.msg=`${p.n} mengocok ${r} dan maju ke kotak ${p.pos}. Jawab dengan benar!`}save(s)}
+function ans(ok){$('pn').classList.add('dim');const s=cl(st),p=s.players[s.turn],t=s.to;s.ev='';
+if(ok){const f=J[t]||t;p.pos=f;if(L[t])s.ev='L';else if(S[t])s.ev='S';s.msg=`${p.n} benar! `+(L[t]?`Naik sepeda tentara Jepang 🚲 ke kotak ${f}.`:S[t]?`Tapi tertangkap penjajah Jepang dan dipaksa kerja paksa ⛓️ turun ke kotak ${f}.`:`Bertahan di kotak ${t}.`);if(t===100){s.phase='over';s.winner=p.n}}
+else{p.pos=s.from;s.ev='back';s.msg=`${p.n} salah dan mundur ke kotak ${s.from}.`}
+if(s.phase!=='over')nxt(s);save(s)}
+async function back(){clearTimeout(bt);ep++;document.body.classList.remove('g');lgs=[];camTo(50,50,1,0);const r=ref,s=st&&cl(st),wl=local;unsub&&unsub();unsub=null;st=null;ref=null;local=false;code='';shown=null;toks=[];dp=[];$('tk').innerHTML='';qu=Promise.resolve();err('');$('dv').classList.remove('on');$('game').classList.add('hid');$('menu').classList.remove('hid');
+if(!wl&&r&&s&&s.phase==='lobby'){try{s.players=s.players.filter(p=>p.id!==me);if(!s.players.length)await r.delete();else{if(s.host===me)s.host=s.players[0].id;await r.set(s)}}catch(e){}}}
+const EX=`Jepang mendarat di Jawa pada awal Maret 1942.
+Perjanjian Kalijati (Subang) ditandatangani 8 Maret 1942.
+Kaisar Hirohito mengumumkan penyerahan pada 15 Agustus 1945.
+Gunseikan memimpin Gunseikanbu, pemerintah militer di Jawa.
+Tentara ke-16 berpusat di Jawa.
+Tentara ke-25 berpusat di Sumatra.
+Angkatan Laut (Kaigun) menguasai Indonesia timur.
+Gerakan 3A dibentuk 1942 untuk menarik simpati rakyat.
+Mr. Syamsuddin memimpin Gerakan 3A.
+Putera dibentuk Maret 1943 dan dipimpin Empat Serangkai.
+Empat Serangkai: Soekarno, Hatta, Ki Hajar Dewantara, K.H. Mas Mansyur.
+Jawa Hokokai (1944) menggantikan Putera.
+Peta adalah tentara sukarela pribumi bentukan Jepang.
+Peta dibentuk pada Oktober 1943.
+Heiho membantu tentara Jepang sebagai prajurit pembantu.
+Romusha dipaksa bekerja berat tanpa upah layak.
+Seinendan melatih pemuda sebagai tenaga cadangan.
+Fujinkai dibentuk 1943 untuk menghimpun perempuan.
+Keibodan membantu polisi menjaga keamanan desa.
+Tonarigumi mengawasi warga per kelompok keluarga, kini mirip RT.
+Bahasa Belanda dilarang, bahasa Indonesia justru berkembang.
+Seikerei: membungkuk ke arah istana Kaisar di Tokyo.
+Taiso adalah senam pagi massal yang diwajibkan.
+Kimigayo dinyanyikan pada upacara resmi Jepang.
+Hirohito menjadi Kaisar Jepang sejak 1926.
+Batavia diubah menjadi Jakarta pada masa Jepang.
+Chuo Sangi In (1943) adalah dewan penasihat pemerintah.
+Soekarno menjadi ketua Chuo Sangi In.
+PM Koiso menjanjikan kemerdekaan pada 7 September 1944.
+Janji Koiso diumumkan pada 7 September 1944.
+Dokuritsu Junbi Cosakai berarti Badan Penyelidik Usaha Persiapan Kemerdekaan.
+Radjiman Wedyodiningrat adalah ketua BPUPKI.
+BPUPKI merumuskan dasar negara dan UUD.
+1 Juni 1945 diperingati sebagai Hari Lahir Pancasila.
+Piagam Jakarta disusun Panitia Sembilan pada 22 Juni 1945.
+Panitia Sembilan diketuai Soekarno.
+PPKI dibentuk pada 7 Agustus 1945.
+Soekarno menjadi ketua dan Hatta wakil ketua PPKI.
+Hiroshima dibom atom pada 6 Agustus 1945.
+Nagasaki dibom atom pada 9 Agustus 1945.
+Marsekal Terauchi menemui tokoh Indonesia di Dalat pada Agustus 1945.
+Dalat terletak di Vietnam.
+Pemuda membawa mereka ke Rengasdengklok pada 16 Agustus 1945.
+Sukarni, Wikana, dan Chaerul Saleh termasuk golongan muda.
+Sayuti Melik mengetik naskah proklamasi.
+Naskah proklamasi dirumuskan di rumah Laksamana Maeda.
+Maeda adalah perwira Angkatan Laut Jepang.
+Fatmawati menjahit bendera Merah Putih.
+Soekarno membacakan teks proklamasi.
+Proklamasi dibacakan di rumah Soekarno, Pegangsaan Timur 56.
+Latief Hendraningrat dan Soehoed mengibarkan bendera.
+Supriyadi memimpin pemberontakan Peta di Blitar.
+Pemberontakan Peta Blitar terjadi pada 14 Februari 1945.
+K.H. Zainal Mustafa menolak Seikerei di Singaparna.
+Cot Plieng berada di Aceh.
+Teungku Abdul Djalil adalah ulama pemimpin perlawanan itu.
+Banyak romusha tewas membangun jalur Saketi–Bayah.
+Jalur Muaro–Pekanbaru dibangun di Sumatra.
+Petani wajib menyetor padi untuk kebutuhan perang.
+Kain langka sehingga rakyat memakai karung goni.
+Jarak ditanam untuk bahan pelumas dan bahan bakar.
+Uang pendudukan memicu inflasi.
+Kokumin Gakko setara sekolah dasar.
+Domei adalah kantor berita Jepang.
+Asia Raya adalah surat kabar terbitan Jakarta.
+Masyumi (1943) menggantikan MIAI.
+K.H. Hasyim Asy’ari menjadi ketua Masyumi.
+Sendenbu mengurus propaganda Jepang.
+Kempeitai adalah polisi militer yang ditakuti.
+Syu berarti karesidenan.
+Ken berarti kabupaten.
+Ku berarti desa.
+Son berarti kecamatan.
+Jenderal Imamura memimpin Tentara ke-16 di Jawa.
+Pertempuran Laut Jawa terjadi pada 27 Februari 1942.
+Tarakan diserang Januari 1942 demi minyaknya.
+Palembang direbut Februari 1942 karena kilang minyaknya.
+Tjarda van Starkenborgh Stachouwer adalah gubernur jenderal terakhir.
+Ter Poorten menyerahkan pasukan Hindia Belanda.
+Soekarno diasingkan Belanda di Bengkulu.
+Hatta dan Sjahrir diasingkan di Banda Neira.
+Sjahrir memimpin gerakan bawah tanah anti-Jepang.
+Amir Syarifuddin ditangkap Jepang pada 1943.
+Pada November 1943 tokoh Indonesia dianugerahi bintang di Tokyo.
+Giyugun adalah tentara sukarela di Sumatra.
+Daidancho adalah komandan batalyon Peta.
+Chudancho adalah komandan kompi Peta.
+Shodancho adalah komandan peleton Peta.
+Budancho adalah komandan regu Peta.
+Jepang menyebut diri Saudara Tua bangsa Asia.
+Hakko Ichiu berarti dunia satu keluarga, dalih perluasan wilayah.
+Kinrohoshi tampak sebagai kerja bakti tetapi berujung kerja paksa.
+Sejak 1943 Jepang terdesak Sekutu di Pasifik.
+Pearl Harbor diserang pada 7 Desember 1941.
+Serangan itu memicu Perang Pasifik.
+Proklamasi dibacakan pukul 10.00 WIB.
+Proklamasi terjadi pada Jumat, 17 Agustus 1945.
+Moh. Hatta wakil presiden pertama RI.
+Soekarno presiden pertama RI, dipilih PPKI 18 Agustus 1945.`.split('\n');
+const NQ=`Pusat latihan perwira Peta berada di?|Bogor|Medan|Makassar|Pusat latihan Peta ada di Bogor.
+Jepang membagi Indonesia menjadi berapa wilayah militer?|3|2|5|Jawa, Sumatra, dan Indonesia timur.
+Romusha juga dikirim ke luar negeri, misalnya ke?|Burma|Australia|Brasil|Banyak romusha dikirim ke Burma dan Thailand.
+Gerakan 3A dibubarkan karena?|Dinilai tidak efektif|Dilarang Belanda|Pemimpinnya wafat|Jepang menilai gerakan ini kurang menarik rakyat.
+Jenderal Jepang yang menerima penyerahan Belanda di Kalijati?|Imamura|Tojo|Yamamoto|Imamura memimpin pasukan yang menyerbu Jawa.
+Perencana serangan Pearl Harbor adalah Laksamana?|Yamamoto|Imamura|Terauchi|Isoroku Yamamoto memimpin Armada Gabungan.
+Perdana Menteri Jepang saat Pearl Harbor diserang?|Hideki Tojo|Koiso|Hirohito|Tojo menjabat PM 1941–1944.
+Pertempuran 1942 yang menjadi titik balik Perang Pasifik?|Midway|Surabaya|Aceh|Jepang kehilangan banyak kapal induk di Midway.
+Sidang pertama BPUPKI dimulai pada?|29 Mei 1945|17 Agustus 1945|22 Juni 1945|Sidang pertama berlangsung 29 Mei–1 Juni 1945.
+Sidang kedua BPUPKI berlangsung pada?|Juli 1945|Mei 1945|Agustus 1945|Sidang kedua digelar 10–17 Juli 1945.
+Pidato dasar negara pertama pada 29 Mei 1945 oleh?|Moh. Yamin|Soepomo|Soekarno|Yamin menyampaikan lima asas dasar negara.
+Soepomo mengusulkan paham negara?|Integralistik|Liberal|Federal|Soepomo berpidato pada 31 Mei 1945.
+Sila pertama Pancasila disahkan PPKI berbunyi?|Ketuhanan Yang Maha Esa|Kemanusiaan|Persatuan|Rumusan Piagam Jakarta diubah pada 18 Agustus 1945.
+UUD 1945 disahkan pada?|18 Agustus 1945|17 Agustus 1945|22 Juni 1945|PPKI mengesahkan UUD sehari setelah proklamasi.
+PPKI pada awalnya membagi Indonesia menjadi berapa provinsi?|8|10|12|Ada delapan provinsi pada awal kemerdekaan.
+Proklamasi disebarkan ke seluruh dunia terutama lewat?|Radio|Televisi|Internet|Berita disiarkan lewat radio dan disebar pemuda.
+Kelompok yang mendesak proklamasi segera dilakukan?|Golongan muda|Golongan tua|Sekutu|Pemuda tak ingin kemerdekaan dianggap hadiah Jepang.
+Tokoh yang menjemput Soekarno-Hatta dari Rengasdengklok?|Ahmad Soebardjo|Sukarni|Wikana|Soebardjo menjamin proklamasi dilakukan di Jakarta.
+Barisan Pelopor bentukan Jepang disebut?|Suishintai|Seinendan|Keibodan|Suishintai dibentuk 1944.
+Suishintai dipimpin oleh?|Soekarno|Hatta|Sukarni|Soekarno memimpin Barisan Pelopor.
+Hizbullah adalah laskar pemuda dari kalangan?|Islam|Pelajar Belanda|Petani Jepang|Hizbullah dibentuk 1944 di bawah Masyumi.
+Tujuan utama Jepang menduduki Indonesia adalah?|Sumber minyak dan bahan mentah|Wisata|Pendidikan|Jepang butuh minyak dan karet untuk perang.
+Perang antara Jepang melawan Sekutu disebut?|Perang Pasifik|Perang Dingin|Perang Candu|Perang Pasifik berlangsung 1941–1945.
+Jepang, Jerman, dan Italia tergabung dalam?|Blok Poros|Sekutu|Non-Blok|Mereka disebut Blok Poros (Axis).
+Pesawat penyerang bunuh diri Jepang disebut?|Kamikaze|Zero|Hinomaru|Kamikaze berarti angin ilahi.
+Bendera Jepang disebut?|Hinomaru|Sakura|Bintang|Hinomaru berarti lingkaran matahari.
+Jepang mendarat di Jawa pada tanggal?|1 Maret 1942|8 Maret 1942|15 Agustus 1945|Pendaratan terjadi di Banten, Indramayu, dan Kragan.
+Kilang minyak yang diincar Jepang antara lain di?|Balikpapan|Bandung|Semarang|Balikpapan dan Palembang kaya minyak.
+Bahasa pengantar sekolah zaman Jepang?|Indonesia|Belanda|Inggris|Bahasa Indonesia dipakai di sekolah.
+Siaran suara Kaisar tentang penyerahan disebut?|Gyokuon-hoso|Kimigayo|Seikerei|Gyokuon-hoso berarti siaran suara permata.
+Pasukan Sekutu yang datang ke Indonesia setelah Jepang?|AFNEI|VOC|KNIL|AFNEI datang diboncengi NICA.
+Pertempuran besar 10 November 1945 terjadi di?|Surabaya|Bandung|Medan|Peristiwa ini diperingati sebagai Hari Pahlawan.
+Jenderal Soedirman dahulu komandan di?|Peta|Heiho|KNIL|Soedirman adalah Daidancho Peta di Banyumas.
+Asrama pemuda radikal di Jakarta?|Menteng 31|Pegangsaan 56|Cikini|Asrama Angkatan Baru Indonesia di Menteng 31.
+Wikana termasuk golongan?|Muda|Tua|Tentara Jepang|Wikana ikut menekan Soekarno-Hatta.
+Teks proklamasi asli ditulis tangan oleh?|Soekarno|Hatta|Sayuti Melik|Soekarno menulis, Sayuti Melik mengetik.
+Mengapa rumusan dibuat di rumah Maeda?|Aman dari tentara darat|Dekat pantai|Gratis|Maeda dari Angkatan Laut yang bersimpati.
+Peta dibubarkan Jepang pada?|Agustus 1945|1943|1950|Peta dibubarkan setelah Jepang kalah.
+Jawa Hokokai berarti?|Himpunan Kebaktian Rakyat Jawa|Tentara Jawa|Sekolah Jawa|Hokokai berarti kebaktian.
+Jepang menyebut romusha sebagai?|Pahlawan pekerja|Pegawai negeri|Tamu kehormatan|Julukan manis menutupi kerja paksa.
+Makanan pengganti beras saat paceklik?|Singkong dan jagung|Roti|Pasta|Beras disetor sehingga rakyat makan umbi dan jagung.
+Koperasi zaman Jepang disebut?|Kumiai|Tonarigumi|Ku|Kumiai berarti koperasi.
+Bahasa Jepang di sekolah zaman itu?|Pelajaran wajib|Dilarang|Pilihan|Jepang menyebarkan budaya lewat sekolah.
+Radio zaman Jepang disegel agar?|Tak mendengar siaran Sekutu|Hemat listrik|Tidak rusak|Rakyat hanya boleh mendengar siaran Jepang.
+Pencipta lagu Indonesia Raya?|W.R. Supratman|Ismail Marzuki|Kusbini|Supratman memperdengarkannya pada 1928.
+Indonesia Raya pertama diperdengarkan di?|Kongres Pemuda II|Sidang BPUPKI|Rengasdengklok|Kongres Pemuda II terjadi pada 28 Oktober 1928.
+17 Agustus 1945 jatuh pada hari?|Jumat|Senin|Minggu|Proklamasi dibacakan hari Jumat.`;
+const AQ=Q.map((a,i)=>[...a,EX[i]]).concat(NQ.split('\n').map(l=>l.split('|')));
+function lnames(){const n=+$('lc').value;$('ln').innerHTML=Array.from({length:n},(_,i)=>`<input class="lni" placeholder="Nama pemain ${i+1}" maxlength="12">`).join('')}
+$('lc').onchange=lnames;lnames();
+$('lcb').onclick=()=>{local=true;const v=[...document.querySelectorAll('.lni')].map((x,i)=>x.value.trim()||'Pemain '+(i+1));st=newSt(v.map((n,i)=>({id:'p'+i,n,pos:1})));render()};
+let ak='';
+function botPlay(){clearTimeout(bt);if(!local||!st)return;const c=st.players[st.turn];if(!c||!c.bot)return;const ph=st.phase,tn=st.turn;if(ph==='roll')bt=setTimeout(()=>{if(local&&st&&st.phase===ph&&st.turn===tn)roll(true)},1300);else if(ph==='answer')bt=setTimeout(()=>{if(local&&st&&st.phase===ph&&st.turn===tn)ans(Math.random()<.6)},2200)}
+function roll(f){if((!f&&!mine())||st.phase!=='roll')return;$('pn').classList.add('dim');const s=cl(st),p=s.players[s.turn],r=1+Math.random()*6|0;s.rid=(s.rid||0)+1;s.roll=r;s.rn=p.n;s.from=p.pos;s.ev='';
+if(p.pos+r>100){s.msg=`${p.n} mengocok ${r} — melebihi kotak 100, tidak maju.`;nxt(s)}else{let u=s.used||[],k;if(u.length>=AQ.length)u=[];do{k=Math.random()*AQ.length|0}while(u.includes(k));u.push(k);s.used=u;s.qi=k;p.pos+=r;s.to=p.pos;s.ev='walk';s.phase='answer';s.msg=`${p.n} mengocok ${r} dan maju ke kotak ${p.pos}. Jawab dengan benar!`}save(s)}
+function ans(ok){const k=st.rid+'-'+st.turn;if(st.phase!=='answer'||ak===k)return;ak=k;$('pn').classList.add('dim');const s=cl(st),p=s.players[s.turn],t=s.to;s.ev='';s.la={q:s.qi,ok,n:p.n};s.aid=(s.aid||0)+1;
+if(ok){const f=J[t]||t;p.pos=f;if(L[t])s.ev='L';else if(S[t])s.ev='S';s.msg=`${p.n} benar! `+(L[t]?`Naik sepeda tentara Jepang 🚲 ke kotak ${f}.`:S[t]?`Tapi tertangkap penjajah Jepang dan dipaksa kerja paksa ⛓️ turun ke kotak ${f}.`:`Bertahan di kotak ${t}.`);if(t===100){s.phase='over';s.winner=p.n}}
+else{p.pos=s.from;s.ev='back';s.msg=`${p.n} salah dan mundur ke kotak ${s.from}.`}
+if(s.phase!=='over')nxt(s);save(s)}
+function showRes(s){return new Promise(r=>{const a=s.la,q=AQ[a.q],m=$('qm');let t;const done=()=>{clearTimeout(t);m.classList.remove('on');setTimeout(r,250)};
+$('qc').innerHTML=`<div class="rs ${a.ok?'ok':'no'}">${a.ok?'✔ Benar!':'✘ Salah!'}</div><div class="q"><b>${esc(q[0])}</b></div><p><b>Jawaban:</b> ${esc(q[1])}</p><p class="ex">${esc(q[4])}</p><button id="nx" style="width:100%">Lanjut ▶</button>`;m.classList.add('on');$('nx').onclick=done;t=setTimeout(done,5000)})}
+async function process(s){if(!st)return;const e=ep;$('menu').classList.add('hid');$('game').classList.remove('hid');if(!built)buildBoard();const P=s.players;if(toks.length!==P.length){mkToks(P);shown=null}
+if(!shown||s.phase==='lobby')P.forEach((p,i)=>{dp[i]=p.pos;put(toks[i],p.pos,i)});
+else{$('pn').classList.add('dim');if(s.aid&&s.aid!==shown.aid)await showRes(s);if(s.rid&&s.rid!==shown.rid)await dice(s.roll,s.rn);for(let i=0;i<P.length;i++){const t=P[i].pos,d=dp[i];if(d===t)continue;if(s.ev==='L'||s.ev==='S')await ride(i,d,t,s.ev);else await walk(i,d,t)}}
+if(!st||e!==ep)return;shown=s;draw()}
+function qmodal(){const m=$('qm');if(!st||st.phase!=='answer'){m.classList.remove('on');return}const q=AQ[st.qi],cur=st.players[st.turn];
+let h=`<div style="font-size:.8rem;opacity:.7">Kotak ${st.to} · giliran ${esc(cur.n)}</div><div class="q" style="font-size:1.15rem"><b>${esc(q[0])}</b></div>`;
+if(mine()){const k=st.rid+'-'+st.turn;if(okey!==k){okey=k;opts=q.slice(1,4).map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1])}h+=opts.map(o=>`<button class="opt" data-o="${esc(o)}">${esc(o)}</button>`).join('')}else h+=`<p>${esc(cur.n)} sedang menjawab…</p>`;
+$('qc').innerHTML=h;m.classList.add('on');$('qc').querySelectorAll('.opt').forEach(b=>b.onclick=()=>{$('qc').querySelectorAll('.opt').forEach(x=>x.disabled=true);ans(b.dataset.o===q[1])})}
+function draw(){if(!st)return;const cur=st.players[st.turn],act=st.phase==='roll'||st.phase==='answer';toks.forEach((t,i)=>t.classList.toggle('turn',act&&i===st.turn));
+$('hd').innerHTML=(code?`<b>Kode ruangan: ${code}</b> — bagikan ke temanmu (maks 4)<br>`:'<b>Mode 1 perangkat</b><br>')+`<div class="pl" style="margin-top:6px">`+st.players.map((p,i)=>`<span class="chip ${act&&i===st.turn?'on':''}"><span class="mi">${man(PK[i],COL[i])}</span>${esc(p.n)}${p.id===me&&!local?' (kamu)':''} · ${p.pos}</span>`).join('')+'</div><div class="row"><button onclick="back()">← Kembali ke Menu</button></div>';
+let p=`<div class="msg">${esc(st.msg)}</div>`;
+if(st.phase==='lobby'){p+=`<p>Pemain: ${st.players.length}/4</p>`+((local||st.host===me)?`<button onclick="start()" ${st.players.length<2&&!local?'disabled':''}>Mulai Permainan</button>${st.players.length<2&&!local?'<p style="font-size:.8rem">Tunggu minimal 2 pemain.</p>':''}`:'<p>Menunggu tuan rumah memulai…</p>')}
+else if(st.phase==='roll'){p+=mine()?`<button style="width:100%;margin-top:8px;font-size:1.1rem" onclick="roll()">🎲 Kocok Dadu — giliran ${esc(cur.n)}</button>`:`<p style="text-align:center">Giliran ${esc(cur.n)}…</p>`}
+else if(st.phase==='over'){p+=`<div class="trophy">🏆</div><h2 style="text-align:center;margin:6px">${esc(st.winner)} Merdeka!</h2>`+((local||st.host===me)?'<button style="width:100%" onclick="again()">Main Lagi</button>':'')}
+$('pn').innerHTML=p;$('pn').classList.remove('dim');qmodal();botPlay()}
+$('env').onclick=()=>{$('env').classList.add('open');setTimeout(()=>{$('sc').classList.add('on');setTimeout(()=>$('sc').classList.add('done'),1400)},350)};
+$('env').onkeydown=e=>{if(e.key==='Enter'||e.key===' ')$('env').onclick()};
+const cs=()=>{$('sc').classList.remove('on','done');$('env').classList.remove('open')};$('scx').onclick=cs;$('sc').onclick=e=>{if(e.target===$('sc'))cs()};
+
+for(let i=0;i<14;i++){const e=document.createElement('i'),s=8+Math.random()*9;e.className='pet';e.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s*.7}px;animation-duration:${9+Math.random()*9}s;animation-delay:-${Math.random()*14}s`;document.body.appendChild(e)}
+let camS=1,lgs=[];
+function camTo(x,y,s,ms){const tx=Math.min(0,Math.max(100-100*s,50-x*s)),ty=Math.min(0,Math.max(100-100*s,50-y*s)),c=$('cam');c.style.transition=ms?`transform ${ms}ms cubic-bezier(.4,0,.2,1)`:'none';c.style.transform=`translate(${tx}%,${ty}%) scale(${s})`}
+async function ride(i,d,t,k){const el=toks[i],[x1,y1]=pos(d),[x2,y2]=pos(t),c=k==='L'?[(x1+x2)/2,(y1+y2)/2]:ctl(x1,y1,x2,y2),ln=document.getElementById('l'+d);ln&&ln.classList.add('fl');let so=null;
+camTo(x1,y1,2,800);await sleep(850);
+if(k==='L'){el.classList.add('bike');await sleep(450)}else{so=document.createElement('div');so.className='tok sol';so.innerHTML=man('jp');$('tk').appendChild(so);put(so,d,i,3.4,0);so.style.opacity=0;so.style.transition='opacity .4s';requestAnimationFrame(()=>so.style.opacity=1);so.firstElementChild.animate([{transform:'scale(.3)'},{transform:'scale(1.15)'},{transform:'scale(1)'}],{duration:450});el.classList.add('shake');await sleep(900)}
+camS=2;await glide(el,so,i,[x1,y1],c,[x2,y2],k==='L'?2300:2000);camS=1;el.classList.remove('bike','shake');ln&&ln.classList.remove('fl');camTo(50,50,1,1000);
+if(so){so.style.opacity=0;await sleep(400);so.remove()}dp[i]=t;put(el,t,i);await sleep(900)}
+async function process(s){if(!st)return;const e=ep;document.body.classList.add('g');$('menu').classList.add('hid');$('game').classList.remove('hid');if(!built)buildBoard();const P=s.players;if(toks.length!==P.length){mkToks(P);shown=null}
+if(!shown||s.phase==='lobby')P.forEach((p,i)=>{dp[i]=p.pos;put(toks[i],p.pos,i)});
+else{$('pn').classList.add('dim');if(s.aid&&s.aid!==shown.aid)await showRes(s);if(s.rid&&s.rid!==shown.rid)await dice(s.roll,s.rn);for(let i=0;i<P.length;i++){const t=P[i].pos,d=dp[i];if(d===t)continue;if(s.ev==='WS'){await walk(i,d,s.to);await sleep(300);await ride(i,s.to,t,'S')}else if(s.ev==='L'||s.ev==='S')await ride(i,d,t,s.ev);else await walk(i,d,t)}}
+if(!st||e!==ep)return;shown=s;draw()}
+function roll(f){if((!f&&!mine())||st.phase!=='roll')return;$('pn').classList.add('dim');const s=cl(st),p=s.players[s.turn],r=1+Math.random()*6|0;s.rid=(s.rid||0)+1;s.roll=r;s.rn=p.n;s.from=p.pos;s.ev='';
+if(p.pos+r>100){s.msg=`${p.n} mengocok ${r} — melebihi kotak 100, tidak maju.`;nxt(s)}else{p.pos+=r;const to=p.pos;
+if(S[to]){p.pos=S[to];s.to=to;s.ev='WS';s.msg=`${p.n} mengocok ${r} dan mendarat di kotak ${to}. Ditangkap penjajah Jepang, dipaksa kerja paksa ⛓️ turun ke kotak ${p.pos}!`;nxt(s)}
+else{let u=s.used||[],k;if(u.length>=AQ.length)u=[];do{k=Math.random()*AQ.length|0}while(u.includes(k));u.push(k);s.used=u;s.qi=k;s.to=to;s.ev='walk';s.phase='answer';s.msg=`${p.n} mengocok ${r} dan maju ke kotak ${to}. Jawab dengan benar!`}}save(s)}
+function draw(){if(!st)return;const cur=st.players[st.turn],act=st.phase==='roll'||st.phase==='answer';toks.forEach((t,i)=>t.classList.toggle('turn',act&&i===st.turn));
+if(st.msg&&lgs[0]!==st.msg){lgs.unshift(st.msg);lgs=lgs.slice(0,6)}
+$('hd').innerHTML=`<div class="rc">${code?`Kode ruangan <b class="code">${code}</b>`:'<b>Mode satu perangkat</b>'}</div>`+st.players.map((p,i)=>`<div class="pr ${act&&i===st.turn?'on':''}"><span class="mi">${man(PK[i],COL[i])}</span><div class="pb"><div class="pt"><b>${esc(p.n)}${p.id===me&&!local?' (kamu)':''}</b><span>${p.pos}/100</span></div><div class="bar"><i style="width:${p.pos}%;background:${COL[i]}"></i></div></div></div>`).join('')+'<button class="b-gold sm" onclick="back()">← Kembali ke Menu</button>';
+$('lg').innerHTML='<b>📜 Catatan Perang</b>'+lgs.map((m,i)=>`<div class="lr" style="opacity:${1-i*.14}">${esc(m)}</div>`).join('');
+let p=`<div class="msg">${esc(st.msg)}</div>`;
+if(st.phase==='lobby'){p+=`<p>Pemain: ${st.players.length}/4</p>`+((local||st.host===me)?`<button onclick="start()" ${st.players.length<2&&!local?'disabled':''}>Mulai Permainan</button>${st.players.length<2&&!local?'<p style="font-size:.8rem">Tunggu minimal 2 pemain.</p>':''}`:'<p>Menunggu tuan rumah memulai…</p>')}
+else if(st.phase==='roll'){p+=mine()?`<button style="width:100%;margin-top:8px;font-size:1.15rem" onclick="roll()">🎲 Kocok Dadu — giliran ${esc(cur.n)}</button>`:`<p style="text-align:center;margin:8px 0 0">Giliran ${esc(cur.n)}…</p>`}
+else if(st.phase==='over'){p+=`<div class="trophy">🏆</div><h2 style="text-align:center;margin:6px">${esc(st.winner)} Merdeka!</h2>`+((local||st.host===me)?'<button style="width:100%" onclick="again()">Main Lagi</button>':'')}
+$('pn').innerHTML=p;$('pn').classList.remove('dim');qmodal();botPlay()}
+
+function buildBoard(){built=true;let g='';for(let r=9;r>=0;r--)for(let k=0;k<10;k++){const n=r*10+(r%2?9-k:k)+1;g+=`<div class="c ${L[n]?'l':S[n]?'s':n===100?'f':''}"><span class="n">${n}</span>${L[n]?'<span class="m" style="font-size:1.5em;filter:drop-shadow(1px 3px 1px #0008)">🚲</span>':S[n]?`<span class="m">${man('jp')}</span>`:n===100?'<span class="m" style="font-size:1.5em">🏯</span>':n===1?'<span class="m" style="font-size:1.5em">🚩</span>':''}</div>`}
+$('board').innerHTML=g;
+$('ov').innerHTML='<defs><filter id="sh" filterUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><feDropShadow dx=".5" dy="1.1" stdDeviation=".55" flood-color="#000" flood-opacity=".6"/></filter></defs>'+
+Object.entries(L).map(([a,b])=>{const[x1,y1]=pos(a),[x2,y2]=pos(b),q=(w,c,o=0,x='')=>`<line x1="${x1}" y1="${y1+o}" x2="${x2}" y2="${y2+o}" stroke="${c}" stroke-width="${w}" stroke-linecap="round" ${x}/>`;
+return`<g filter="url(#sh)">${q(3.1,'#4a2f14')}${q(2.4,'#a8743a')}${q(1.3,'#e0b46f',-.4,'opacity=".85"')}</g><line id="l${a}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#f6e7bd" stroke-width=".5" stroke-dasharray="1.6 1.6"/>`}).join('')+
+Object.entries(S).map(([a,b])=>{const[x1,y1]=pos(a),[x2,y2]=pos(b),d=`M${x1} ${y1} Q${(x1+x2)/2+6} ${(y1+y2)/2} ${x2} ${y2}`,q=(w,c,x='')=>`<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" ${x}/>`;
+return`<g filter="url(#sh)">${q(2.9,'#3d0a0a')}${q(2.1,'#b3201f')}${q(.7,'#f1a592','stroke-dasharray=".9 1.1" opacity=".9"')}</g><path id="l${a}" d="${d}" fill="none" stroke="#fff" stroke-width=".25" stroke-dasharray="1 2" opacity=".5"/>`}).join('')}
+
+function buildBoard(){built=true;let g='';for(let r=9;r>=0;r--)for(let k=0;k<10;k++){const n=r*10+(r%2?9-k:k)+1;g+=`<div class="c ${L[n]?'l':S[n]?'s':n===100?'f':''}"><span class="n">${n}</span></div>`}
+$('board').innerHTML=g;let m=$('mkl');if(!m){m=document.createElement('div');m.id='mkl';$('cam').insertBefore(m,$('tk'))}
+const mk=(n,t,c)=>{const[x,y]=pos(n);return`<div class="mkr ${c}" style="left:${x+1.6}%;top:${y+4.6}%">${t}</div>`};
+m.innerHTML=Object.keys(L).map(n=>mk(n,'🚲','b')).join('')+Object.keys(S).map(n=>mk(n,man('jp'),'j')).join('')+mk(100,'🏯','b');
+$('ov').innerHTML='<defs><filter id="sh" filterUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><feDropShadow dx=".5" dy="1.1" stdDeviation=".55" flood-color="#000" flood-opacity=".6"/></filter></defs>'+
+Object.entries(L).map(([a,b])=>{const[x1,y1]=pos(a),[x2,y2]=pos(b),q=(w,c,o=0,x='')=>`<line x1="${x1}" y1="${y1+o}" x2="${x2}" y2="${y2+o}" stroke="${c}" stroke-width="${w}" stroke-linecap="round" ${x}/>`;
+return`<g filter="url(#sh)">${q(3.1,'#4a2f14')}${q(2.4,'#a8743a')}${q(1.3,'#e0b46f',-.4,'opacity=".85"')}</g><line id="l${a}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#f6e7bd" stroke-width=".5" stroke-dasharray="1.6 1.6"/>`}).join('')+
+Object.entries(S).map(([a,b])=>{const[x1,y1]=pos(a),[x2,y2]=pos(b),[cx,cy]=ctl(x1,y1,x2,y2),d=`M${x1} ${y1} Q${cx} ${cy} ${x2} ${y2}`,q=(w,c,x='')=>`<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" ${x}/>`;
+return`<g filter="url(#sh)">${q(2.9,'#3d0a0a')}${q(2.1,'#b3201f')}${q(.7,'#f1a592','stroke-dasharray=".9 1.1" opacity=".9"')}</g><path id="l${a}" d="${d}" fill="none" stroke="#fff" stroke-width=".25" stroke-dasharray="1 2" opacity=".5"/>`}).join('')}
+</script></body></html>
